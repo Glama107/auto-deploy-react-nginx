@@ -1,0 +1,21 @@
+server {
+  listen 80;
+  server_name SERVERNAME;
+  root /var/www/html/PROJECTNAME;
+  index index.html;
+  
+  access_log /var/log/nginx/demo-app.access.log;
+  error_log /var/log/nginx/demo-app.error.log;
+  location / {
+    try_files $uri /index.html =404;
+  }
+}
+
+path=$(pwd)
+
+cd $path
+        sudo cp config $projectname
+        sed -i "s/SERVERNAME/$hostip/" $projectname 
+        sed -i "s/PROJECTNAME/$projectname/" $projectname 
+
+        sudo cp $projectname /etc/nginx/sites-available/
