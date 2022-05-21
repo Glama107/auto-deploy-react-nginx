@@ -32,7 +32,9 @@ clear
         read gitrepo
         echo ""
         echo "Cloning repository..."
-        git clone $gitrepo > /dev/null 2>&1
+        #making a new folder to prevent error while creating config file
+        sudo mkdir Projects
+        git clone $gitrepo Projects > /dev/null 2>&1
         #use last part of url to make project name
         projectname="$(echo $gitrepo | sed -r 's/.+\/([^.]+)(\.git)?/\1/')"
         projectpath="$path/$projectname"
@@ -82,7 +84,7 @@ clear
             cd $path
 
             #duplicate & rename config file to project name
-            sudo cp config $projectname.conf
+            sudo cp config $projectname
 
             #templating modification in config file
             sed -i "s/SERVERNAME/$hostip/" $projectname
