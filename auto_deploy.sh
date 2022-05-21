@@ -18,6 +18,8 @@ clear
     echo -e "\033[0;32mTool to auto-deploy a react website on ubuntu server\033[0;0m"
     echo ""
     echo 'Installing packages ...'
+    #Adding source for node16
+    curl -s https://deb.nodesource.com/setup_16.x | sudo bash
     sudo apt update > /dev/null 2>&1 && sudo apt install nodejs npm git-all nginx -y > /dev/null 2>&1
 
     clear
@@ -158,7 +160,7 @@ clear
         clear
 
         echo "Installing packages ..."
-        sudo apt install certbot python3 python3-certbot-nginx > /dev/null 2>&1
+        sudo apt install certbot python3 python3-certbot-nginx -y > /dev/null 2>&1
 
         echo "Put your Host Domain Name (eg: www.example.com)"
         read dns
