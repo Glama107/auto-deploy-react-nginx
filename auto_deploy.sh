@@ -241,6 +241,7 @@ Delete()
     else
         echo "ERROR: No projects to delete!"
         exit 1
+    fi
 }
 
 
