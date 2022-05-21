@@ -225,8 +225,6 @@ Main(){
 
 Delete(){
     #Listing all folder insite projects
-
-    if [ $? -eq 0 ]
     then
         #Ask the project to delete
         echo "Wich project to delete ? the projects up are :"
@@ -240,6 +238,16 @@ Delete(){
         then
             exit 1
         fi
+        cat /etc/nginx/sites-available/$projecttodelete
+        if [ $? -eq 0 ]
+        then
+
+        else
+            echo "Project does not exist"
+            exit 1
+        fi
+
+
         #Re-asking to delete
         echo -e "\033[0;31mAre you sure you wanna delete? Re-typing the project name to confim : $projectsworking \033[0;0m"
         read projectToDeleteConfirmation
