@@ -33,11 +33,12 @@ clear
         echo ""
         echo "Cloning repository..."
         #making a new folder to prevent error while creating config file
-        sudo mkdir Projects
-        git clone $gitrepo Projects > /dev/null 2>&1
+        sudo mkdir projects
+        cd projects
+        git clone $gitrepo > /dev/null 2>&1
         #use last part of url to make project name
         projectname="$(echo $gitrepo | sed -r 's/.+\/([^.]+)(\.git)?/\1/')"
-        projectpath="$path/Projects/$projectname"
+        projectpath="$path/projects/$projectname"
         echo $projectpath
         cd $projectpath
         #Install the node_modules
