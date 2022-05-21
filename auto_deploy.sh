@@ -18,7 +18,7 @@ clear
     echo -e "\033[0;32mTool to auto-deploy a react website on ubuntu server\033[0;0m"
     echo ""
     echo 'Installing packages ...'
-    sudo apt update > /dev/null 2>&1 && sudo apt install nodejs npm git-all nginx > /dev/null 2>&1
+    sudo apt update > /dev/null 2>&1 && sudo apt install nodejs npm git-all nginx -y > /dev/null 2>&1
 
     clear
 
