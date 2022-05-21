@@ -19,8 +19,9 @@ clear
     echo ""
     echo 'Installing packages ...'
     #Adding source for node16
-    curl -s https://deb.nodesource.com/setup_16.x | sudo bash
-    sudo apt update && sudo apt install nodejs npm git-all nginx -y > /dev/null 2>&1
+    curl -s https://deb.nodesource.com/setup_16.x | sudo bash > /dev/null 2>&1
+    sudo apt update > /dev/null 2>&1
+    sudo apt install nodejs npm git-all nginx -y > /dev/null 2>&1
 
     clear
 
