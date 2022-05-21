@@ -18,18 +18,6 @@ Help()
    echo
 }
 
-if [ "$1" == "-h" ] || [ "$1" == "" ]; then
-  echo -e "\033[0;31mAdd -a or -h to run program\033[0;0m"
-  Help
-  exit 0
-elif [ "$1" == "-c" ]; 
-then
-    Deploy
-elif [ "$1" == "-d" ];
-then
-    Delete
-fi
-
 echo -e "\033[0;31m
 
           _    _ _______ ____    _____  ______ _____  _      ______     __
@@ -238,3 +226,16 @@ Delete()
     cd $path
     sudo rm -rf "projects/$projecttodelete"
 }
+
+
+if [ "$1" == "-h" ] || [ "$1" == "" ]; then
+  echo -e "\033[0;31mAdd -a or -h to run program\033[0;0m"
+  Help
+  exit 0
+elif [ "$1" == "-c" ]; 
+then
+    Deploy
+elif [ "$1" == "-d" ];
+then
+    Delete
+fi
