@@ -285,10 +285,6 @@ Delete(){
     echo -e "\033[0;32mSuccess !\033[0;0m reloading nginx config"
     sudo systemctl restart nginx
     echo -e "\033[0;32mAll has been delete !\033[0;0m"
-else
-    echo -e "\033[0;31mERROR: No projects to delete!\033[0;0m"
-    exit 1
-fi
 }
 
 
