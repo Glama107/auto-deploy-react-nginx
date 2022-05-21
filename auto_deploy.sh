@@ -214,7 +214,7 @@ Deploy(){
 Delete(){
     #Listing all folder insite projects
     cd projects
-    projectsworking=$(ls -d * > /dev/null 2>&1)
+    projectsworking=$(ls /etc/nginx/sites-available/ > /dev/null 2>&1)
     if [ $? -eq 0 ]
     then
         #Ask the project to delete
@@ -226,7 +226,27 @@ Delete(){
         cd $path
         echo "Deleting $projecttodelete folder..."
         sudo rm -rf "projects/$projecttodelete"
-        echo -e "\033[0;32mSucessfuly delete!\033[0;0m, now deleting inside /var/www/html/$projecttodelete ..."
+        if [ $? -eq 0 ]
+        then
+            echo -e "\033[0;32mSucessfuly delete!\033[0;0m"
+            continue
+        else
+            echo "Project folder not found, wanna delete it? [Y/N]"
+            if [ $repo = 'Y' ] || [ $repo = 'Yes' ] || [ $repo = 'y' ] || [ $repo = 'yes' ]
+            then
+                echo "Put the project folder path : "
+                read path
+                echo "Are you sure of the path of the project? [Y/N]"
+                sudo rm -rf $path
+                echo -e "\033[0;32mSucessfully delete project folder!\033[0;0m"
+        
+            elif [ $repo = 'N' ] || [ $repo = 'No' ] || [ $repo = 'n' ] || [ $repo = 'no' ]
+            then
+                echo "Skipping..."
+                continue
+            fi
+        fi
+        echo -e "Deleting inside /var/www/html/$projecttodelete ..."
         sudo rm -rf "/var/www/html/$projecttodelete"
         echo -e "\033[0;32mSuccess !\033[0;0m Deleting nginx config..."
         sudo rm /etc/nginx/sites-available/$projecttodelete
