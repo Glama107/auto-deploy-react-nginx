@@ -61,11 +61,12 @@ clear
         echo 'Paste your project path here : '
         read projectpath
         cd $projectpath
+        #projectname is the last part of the path
         projectname="${projectpath##*/}"
 
     else
         echo 'Wrong argument try again ...'
-        exit
+        exit 1
     fi
 
     #try to build react project
@@ -74,10 +75,12 @@ clear
     sudo npm run build > /dev/null 2>&1
     if [ $? -eq 0 ]
     then
-        echo -e "\033[0;32mBuild succeed\033[0;0m"
+        echo -e "\033[0;32mBuild succesfully\033[0;0m"
         sleep 1
         clear
-        echo 'What is your Host IP (for local testing)'
+        #Command to show current external IP address
+        currentip = $(dig @resolver4.opendns.com myip.opendns.com +short)
+        echo -e "What is your Host IP (current is \033[0;36m$currentip)\033[0;0m"
         read hostip
         #testing if the ip pattern is correct
         if [[ $hostip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
