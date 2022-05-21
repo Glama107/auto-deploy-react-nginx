@@ -239,11 +239,14 @@ Delete(){
         if [ $projecttodelete = ""]
         then
             exit 1
-        else
-            continue
         fi
         #Re-asking to delete
         echo -e "\033[0;31mAre you sure you wanna delete? Re-typing the project name to confim : $projectsworking \033[0;0m"
+        read projectToDeleteConfirmation
+        if [ $projectToDeleteConfirmation != $projecttodelete]
+        then
+            exit 1 
+        fi
         #Deleting the project folder
         cd $path
         echo "Deleting $projecttodelete folder..."
@@ -251,7 +254,6 @@ Delete(){
         if [ $? -eq 0 ]
         then
             echo -e "\033[0;32mSucessfuly delete!\033[0;0m"
-            continue
         else
             echo "Project folder not found, wanna delete it? [Y/N]"
             if [ $repo = 'Y' ] || [ $repo = 'Yes' ] || [ $repo = 'y' ] || [ $repo = 'yes' ]
