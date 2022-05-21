@@ -58,6 +58,38 @@ CloneProject(){
         fi
 }
 
+BuildAndIpAsking(){
+    #try to build react project
+    clear
+    echo 'Building project, please wait ...'
+    sudo npm run build > /dev/null 2>&1
+    if [ $? -eq 0 ]
+    then
+        echo -e "\033[0;32mBuild succesfully\033[0;0m"
+        sleep 1
+        clear
+        #Command to show current external IP address
+        currentip="$(dig @resolver4.opendns.com myip.opendns.com +short)"
+        echo -e "What is your Host IP (current is \033[0;36m$currentip\033[0;0m)"
+        read hostip
+        #testing if the ip pattern is correct
+        if [[ $hostip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+
+            clear
+            cd $path
+
+            Installation
+
+        else
+            echo -e "\033[0;31mWrong IP pattern\033[0;0m"
+            exit 1
+        fi
+    else
+        echo -e "\033[0;31mBuild Failed\033[0;0m"
+        exit 1
+    fi
+}
+
 Installation(){
     #duplicate & rename config file to project name
     sudo cp config $projectname
@@ -110,6 +142,7 @@ Installation(){
         exit 1
     fi
 }
+
 SSLSetup(){
     clear
 
@@ -132,7 +165,8 @@ SSLSetup(){
         sudo systemctl restart nginx > /dev/null 2>&1
 
         clear
-        echo -e "\033[0;32mSuccess !\033[0;0m go to \033[0;32mhttps://${dns}/\033[0;0m"
+        echo -e "\033[0;32mSuccess !\033[0;0m"
+        echo -e "Go to \033[0;32mhttps://${dns}/\033[0;0m"
         echo -e "You can test the config at \033[0;32mhttps://www.ssllabs.com/ssltest/analyze.html?d=${dns}&latest\033[0;0m"
     else
         echo -e "\033[0;31mError : unable to setup certbot certificate, try again.\033[0;0m"
@@ -140,7 +174,7 @@ SSLSetup(){
     fi
 }
 
-Deploy(){
+Main(){
     PackagesInstallation
 
     echo 'Do you have a Git repository ? [Y/N] : '
@@ -164,35 +198,7 @@ Deploy(){
         exit 1
     fi
 
-    #try to build react project
-    clear
-    echo 'Project in build, please wait ...'
-    sudo npm run build > /dev/null 2>&1
-    if [ $? -eq 0 ]
-    then
-        echo -e "\033[0;32mBuild succesfully\033[0;0m"
-        sleep 1
-        clear
-        #Command to show current external IP address
-        currentip="$(dig @resolver4.opendns.com myip.opendns.com +short)"
-        echo -e "What is your Host IP (current is \033[0;36m$currentip\033[0;0m)"
-        read hostip
-        #testing if the ip pattern is correct
-        if [[ $hostip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-
-            clear
-            cd $path
-
-            Installation
-
-        else
-            echo -e "\033[0;31mWrong IP pattern\033[0;0m"
-            exit 1
-        fi
-    else
-        echo -e "\033[0;31mBuild Failed\033[0;0m"
-        exit 1
-    fi
+    BuildAndIpAsking
 
     # SSL CERTIFICATE
 
@@ -267,7 +273,7 @@ if [ "$1" == "-h" ] || [ "$1" == "" ]; then
   exit 0
 elif [ "$1" == "-c" ]; 
 then
-    Deploy
+    Main
 elif [ "$1" == "-d" ];
 then
     Delete
