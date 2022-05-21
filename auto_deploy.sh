@@ -237,12 +237,12 @@ Delete(){
     then
         exit 1
     fi
-    cat /etc/nginx/sites-available/$projecttodelete
+    cat /etc/nginx/sites-available/$projecttodelete > /dev/null 2>&1
     if [ $? -eq 0 ]
     then
         continue
     else
-        echo "Project does not exist"
+        echo -e "033[0;31mERROR : Project does not exist033[0;0m"
         exit 1
     fi
 
