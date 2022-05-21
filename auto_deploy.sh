@@ -37,9 +37,9 @@ clear
         git clone $gitrepo Projects > /dev/null 2>&1
         #use last part of url to make project name
         projectname="$(echo $gitrepo | sed -r 's/.+\/([^.]+)(\.git)?/\1/')"
-        projectpath="$path/$projectname"
+        projectpath="$path/Projects/$projectname"
         echo $projectpath
-        cd $projectname
+        cd $projectpath
         #Install the node_modules
         echo "Installing node_modules..."
         sudo npm i > /dev/null 2>&1
