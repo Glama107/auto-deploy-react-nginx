@@ -218,28 +218,28 @@ Delete()
 {
     #Listing all folder insite projects
     cd projects
-    projectsworking=$(ls -d *)
+    projectsworking=$(ls -d *) > /dev/null 2>&1
     if [ $? -eq 0 ]
     then
         #Ask the project to delete
         echo "Wich project to delete ? the projects up are : $projectsworking "
         read projecttodelete
         #Re-asking to delete
-        echo "Are you sure you wanna delete? Re-typing the project name to confim : $projectsworking "
+        echo -e "\033[0;31mAre you sure you wanna delete? Re-typing the project name to confim : $projectsworking \033[0;0m"
         #Deleting the project folder
         cd $path
         echo "Deleting $projecttodelete folder..."
         sudo rm -rf "projects/$projecttodelete"
-        echo "Sucessfuly delete, now deleting inside /var/www/html/$projecttodelete ..."
+        echo -e "\033[0;32mSucessfuly delete!\033[0;0m, now deleting inside /var/www/html/$projecttodelete ..."
         sudo rm -rf "/var/www/html/$projecttodelete"
-        echo "Success ! Deleting nginx config..."
+        echo -e "\033[0;32mSuccess !\033[0;0m Deleting nginx config..."
         sudo rm /etc/nginx/sites-available/$projecttodelete
         sudo rm /etc/nginx/sites-enabled/$projecttodelete
-        echo "Success ! reloading nginx config"
+        echo -e "\033[0;32mSuccess !\033[0;0m reloading nginx config"
         sudo systemctl restart nginx
-        echo "All has been delete !"
+        echo "\033[0;32mAll has been delete !\033[0;0m"
     else
-        echo "ERROR: No projects to delete!"
+        echo -e "\033[0;31mERROR: No projects to delete!\033[0;0m"
         exit 1
     fi
 }
