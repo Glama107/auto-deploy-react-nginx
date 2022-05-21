@@ -233,7 +233,7 @@ Delete(){
         echo "${entry##*/}"
     done
     read projecttodelete
-    if [ $projecttodelete = ""]
+    if [ $projecttodelete = "" ];
     then
         exit 1
     fi
