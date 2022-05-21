@@ -5,7 +5,7 @@ clear
 path=$(pwd)
 
 #Prevent lag while executing script
-dpkg -s figlet
+dpkg -s figlet > /dev/null 2>&1
 if [ $? -eq 0 ] 
 then
     echo -e "\033[0;32m"
