@@ -42,7 +42,7 @@ Help()
    echo
 }
 
-echo -e autoDeployText
+echo -e $autoDeployText
 
 CloneProject()
 {
@@ -101,7 +101,7 @@ Installation()
             #delete config file in current folder
             sudo rm $projectname
 
-            echo -e successAscii
+            echo -e $successAscii
 
             echo -e "File has been created in \033[0;36m/etc/nginx/sites-available/$projectname\033[0;0m"
             echo -e "Your website folder is located in \033[0;36m/var/www/html/$projectname\033[0;0m"
