@@ -225,71 +225,70 @@ Main(){
 
 Delete(){
     #Listing all folder insite projects
+    #Ask the project to delete
+    echo "Wich project to delete ? the projects up are :"
+    search_dir=/etc/nginx/sites-available/
+    for entry in "$search_dir"/*
+    do
+        echo "${entry##*/}"
+    done
+    read projecttodelete
+    if [ $projecttodelete = ""]
     then
-        #Ask the project to delete
-        echo "Wich project to delete ? the projects up are :"
-            search_dir=/etc/nginx/sites-available/
-        for entry in "$search_dir"/*
-        do
-            echo "${entry##*/}"
-        done
-        read projecttodelete
-        if [ $projecttodelete = ""]
-        then
-            exit 1
-        fi
-        cat /etc/nginx/sites-available/$projecttodelete
-        if [ $? -eq 0 ]
-        then
-
-        else
-            echo "Project does not exist"
-            exit 1
-        fi
-
-
-        #Re-asking to delete
-        echo -e "\033[0;31mAre you sure you wanna delete? Re-typing the project name to confim : $projectsworking \033[0;0m"
-        read projectToDeleteConfirmation
-        if [ $projectToDeleteConfirmation != $projecttodelete]
-        then
-            exit 1 
-        fi
-        #Deleting the project folder
-        cd $path
-        echo "Deleting $projecttodelete folder..."
-        sudo rm -rf "projects/$projecttodelete"
-        if [ $? -eq 0 ]
-        then
-            echo -e "\033[0;32mSucessfuly delete!\033[0;0m"
-        else
-            echo "Project folder not found, wanna delete it? [Y/N]"
-            if [ $repo = 'Y' ] || [ $repo = 'Yes' ] || [ $repo = 'y' ] || [ $repo = 'yes' ]
-            then
-                echo "Put the project folder path : "
-                read path
-                echo "Are you sure of the path of the project? [Y/N]"
-                sudo rm -rf $path
-                echo -e "\033[0;32mSucessfully delete project folder!\033[0;0m"
-        
-            elif [ $repo = 'N' ] || [ $repo = 'No' ] || [ $repo = 'n' ] || [ $repo = 'no' ]
-            then
-                echo "Skipping..."
-                continue
-            fi
-        fi
-        echo -e "Deleting inside /var/www/html/$projecttodelete ..."
-        sudo rm -rf "/var/www/html/$projecttodelete"
-        echo -e "\033[0;32mSuccess !\033[0;0m Deleting nginx config..."
-        sudo rm /etc/nginx/sites-available/$projecttodelete
-        sudo rm /etc/nginx/sites-enabled/$projecttodelete
-        echo -e "\033[0;32mSuccess !\033[0;0m reloading nginx config"
-        sudo systemctl restart nginx
-        echo -e "\033[0;32mAll has been delete !\033[0;0m"
-    else
-        echo -e "\033[0;31mERROR: No projects to delete!\033[0;0m"
         exit 1
     fi
+    cat /etc/nginx/sites-available/$projecttodelete
+    if [ $? -eq 0 ]
+    then
+        continue
+    else
+        echo "Project does not exist"
+        exit 1
+    fi
+
+
+    #Re-asking to delete
+    echo -e "\033[0;31mAre you sure you wanna delete? Re-typing the project name to confim : $projectsworking \033[0;0m"
+    read projectToDeleteConfirmation
+    if [ $projectToDeleteConfirmation != $projecttodelete]
+    then
+        exit 1 
+    fi
+    #Deleting the project folder
+    cd $path
+    echo "Deleting $projecttodelete folder..."
+    sudo rm -rf "projects/$projecttodelete"
+    if [ $? -eq 0 ]
+    then
+        echo -e "\033[0;32mSucessfuly delete!\033[0;0m"
+    else
+        echo "Project folder not found, wanna delete it? [Y/N]"
+        if [ $repo = 'Y' ] || [ $repo = 'Yes' ] || [ $repo = 'y' ] || [ $repo = 'yes' ]
+        then
+            echo "Put the project folder path : "
+            read path
+            echo "Are you sure of the path of the project? [Y/N]"
+            sudo rm -rf $path
+            echo -e "\033[0;32mSucessfully delete project folder!\033[0;0m"
+    
+        elif [ $repo = 'N' ] || [ $repo = 'No' ] || [ $repo = 'n' ] || [ $repo = 'no' ]
+        then
+            echo "Skipping..."
+            continue
+        fi
+    fi
+    echo -e "Deleting inside /var/www/html/$projecttodelete ..."
+    sudo rm -rf "/var/www/html/$projecttodelete"
+    echo -e "\033[0;32mSuccess !\033[0;0m Deleting nginx config..."
+    sudo rm /etc/nginx/sites-available/$projecttodelete
+    sudo rm /etc/nginx/sites-enabled/$projecttodelete
+    echo -e "\033[0;32mSuccess !\033[0;0m reloading nginx config"
+    sudo systemctl restart nginx
+    echo -e "\033[0;32mAll has been delete !\033[0;0m"
+else
+    echo -e "\033[0;31mERROR: No projects to delete!\033[0;0m"
+    exit 1
+fi
 }
 
 
