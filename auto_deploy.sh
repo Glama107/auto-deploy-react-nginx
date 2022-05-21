@@ -34,6 +34,16 @@ clear
         #use last part of url to make project name
         projectname="$(echo $gitrepo | sed -r 's/.+\/([^.]+)(\.git)?/\1/')"
         cd $projectname
+        #Install the node_modules
+        echo "Installing node_modules..."
+        sudo npm i
+        if [ $? -eq 0 ]
+            then
+                echo -e "\033[0;32mSUCCESS!"
+            else 
+                echo -e "\033[0;31mERROR: Installation failed\033[0;0m"
+                exit 1
+            fi
         
         
     elif [ $repo = 'N' ] || [ $repo = 'No' ] || [ $repo = 'n' ] || [ $repo = 'no' ]
