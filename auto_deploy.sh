@@ -233,7 +233,7 @@ Delete(){
             search_dir=/etc/nginx/sites-available/
         for entry in "$search_dir"/*
         do
-            echo "$entry"
+            echo "${entry##*/}"
         done
         read projecttodelete
         if [ $projecttodelete = ""]
