@@ -107,6 +107,9 @@ clear
             sudo rm -f /etc/nginx/sites-available/default > /dev/null 2>&1
             sudo rm -f /etc/nginx/sites-enabled/default > /dev/null 2>&1
 
+            #delete config file in current folder
+            sudo rm $projectname
+
             echo -e "\033[0;32m
    _____ _    _  _____ _____ ______  _____ _____ 
   / ____| |  | |/ ____/ ____|  ____|/ ____/ ____|
