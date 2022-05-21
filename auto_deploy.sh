@@ -33,20 +33,19 @@ clear
         echo ""
         echo "Cloning repository..."
         #making a new folder to prevent error while creating config file
-        sudo mkdir projects
+        sudo mkdir projects > /dev/null 2>&1
         cd projects
         git clone $gitrepo > /dev/null 2>&1
         #use last part of url to make project name
         projectname="$(echo $gitrepo | sed -r 's/.+\/([^.]+)(\.git)?/\1/')"
         projectpath="$path/projects/$projectname"
-        echo $projectpath
         cd $projectpath
         #Install the node_modules
         echo "Installing node_modules..."
         sudo npm i > /dev/null 2>&1
         if [ $? -eq 0 ]
             then
-                echo -e "\033[0;32mSUCCESS!"
+                echo -e "\033[0;32mSUCCESS!\033[0;0m"
                 sleep 1
             else 
                 echo -e "\033[0;31mERROR: Installation failed\033[0;0m"
@@ -91,8 +90,9 @@ clear
             sed -i "s/SERVERNAME/$hostip/" $projectname
             sed -i "s/PROJECTNAME/$projectname/" $projectname
 
-            #create folder insite html folder
+            #create folder insite html folder & add permission of nginx to read folder
             sudo mkdir /var/www/html/$projectname > /dev/null 2>&1
+            sudo chown -R www-data:www-data /var/www/html/$projectname > /dev/null 2>&1
 
             #move config file to sites-available
             sudo cp $projectname /etc/nginx/sites-available/ > /dev/null 2>&1
