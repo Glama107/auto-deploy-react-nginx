@@ -4,10 +4,16 @@ clear
 
 path=$(pwd)
 
-sudo apt install figlet -y > /dev/null 2>&1
-echo -e "\033[0;32m"
-figlet -c AUTO DEPLOY
-echo -e "\033[0;0m"
+#Prevent lag while executing script
+dpkg -s figlet
+if [ $? -eq 0 ] 
+then
+    echo -e "\033[0;32m"
+    figlet -c AUTO DEPLOY
+    echo -e "\033[0;0m"
+else
+    sudo apt install figlet -y > /dev/null 2>&1
+fi
 
 DisplayHelp(){
    # Display Help
