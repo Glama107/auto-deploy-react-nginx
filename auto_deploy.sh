@@ -225,13 +225,23 @@ Main(){
 
 Delete(){
     #Listing all folder insite projects
-    cd projects
-    projectsworking=$(ls /etc/nginx/sites-available/ > /dev/null 2>&1)
+
     if [ $? -eq 0 ]
     then
         #Ask the project to delete
-        echo "Wich project to delete ? the projects up are : $projectsworking "
+        echo "Wich project to delete ? the projects up are :"
+            search_dir=/etc/nginx/sites-available/
+        for entry in "$search_dir"/*
+        do
+            echo "$entry"
+        done
         read projecttodelete
+        if [ $projecttodelete = ""]
+        then
+            exit 1
+        else
+            continue
+        fi
         #Re-asking to delete
         echo -e "\033[0;31mAre you sure you wanna delete? Re-typing the project name to confim : $projectsworking \033[0;0m"
         #Deleting the project folder
@@ -265,7 +275,7 @@ Delete(){
         sudo rm /etc/nginx/sites-enabled/$projecttodelete
         echo -e "\033[0;32mSuccess !\033[0;0m reloading nginx config"
         sudo systemctl restart nginx
-        echo "\033[0;32mAll has been delete !\033[0;0m"
+        echo -e "\033[0;32mAll has been delete !\033[0;0m"
     else
         echo -e "\033[0;31mERROR: No projects to delete!\033[0;0m"
         exit 1
