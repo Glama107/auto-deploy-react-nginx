@@ -4,6 +4,7 @@ clear
 
 path=$(pwd)
 
+sudo apt install figlet -y > /dev/null 2>&1
 echo -e "\033[0;32m"
 figlet -c AUTO DEPLOY
 echo -e "\033[0;0m"
@@ -25,7 +26,7 @@ PackagesInstallation(){
     #Adding source for node16
     curl -s https://deb.nodesource.com/setup_16.x | sudo bash > /dev/null 2>&1
     sudo apt update > /dev/null 2>&1
-    sudo apt install nodejs npm git-all nginx figlet toilet -y > /dev/null 2>&1
+    sudo apt install nodejs npm git-all nginx toilet -y > /dev/null 2>&1
 
     clear
 }
