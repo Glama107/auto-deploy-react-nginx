@@ -5,14 +5,14 @@ clear
 path=$(pwd)
 
 #Prevent lag while executing script
-dpkg -s figlet > /dev/null 2>&1
+dpkg -s figlet toilet > /dev/null 2>&1
 if [ $? -eq 0 ] 
 then
     echo -e "\033[0;32m"
     figlet -c AUTO DEPLOY
     echo -e "\033[0;0m"
 else
-    sudo apt install figlet -y > /dev/null 2>&1
+    sudo apt install figlet toilet -y > /dev/null 2>&1
 fi
 
 DisplayHelp(){
@@ -32,7 +32,13 @@ PackagesInstallation(){
     #Adding source for node16
     curl -s https://deb.nodesource.com/setup_16.x | sudo bash > /dev/null 2>&1
     sudo apt update > /dev/null 2>&1
-    sudo apt install nodejs npm git-all nginx toilet -y > /dev/null 2>&1
+    dpkg -s nodejs npm git-all nginx
+    if [ $? -eq 0 ] 
+    then
+        continue
+    else
+        sudo apt install nodejs npm git-all nginx -y > /dev/null 2>&1
+    fi
 
     clear
 }
