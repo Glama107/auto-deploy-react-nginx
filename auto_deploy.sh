@@ -32,13 +32,7 @@ PackagesInstallation(){
     #Adding source for node16
     curl -s https://deb.nodesource.com/setup_16.x | sudo bash > /dev/null 2>&1
     sudo apt update > /dev/null 2>&1
-    dpkg -s nodejs npm git-all nginx
-    if [ $? -eq 0 ] 
-    then
-        continue
-    else
-        sudo apt install nodejs npm git-all nginx -y > /dev/null 2>&1
-    fi
+    sudo apt install nodejs npm git-all nginx -y > /dev/null 2>&1
 
     clear
 }
