@@ -30,9 +30,12 @@ clear
         #clone repo & define project name
         echo 'Paste your link here : '
         read gitrepo
+        echo ""
+        echo "Cloning repository..."
         git clone $gitrepo > /dev/null 2>&1
         #use last part of url to make project name
         projectname="$(echo $gitrepo | sed -r 's/.+\/([^.]+)(\.git)?/\1/')"
+        projectpath="$path/$projectname"
         cd $projectname
         #Install the node_modules
         echo "Installing node_modules..."
