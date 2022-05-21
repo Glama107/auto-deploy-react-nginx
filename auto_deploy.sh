@@ -242,7 +242,7 @@ Delete(){
     then
         continue
     else
-        echo -e "033[0;31mERROR : Project does not exist033[0;0m"
+        echo -e "\033[0;31mERROR : Project does not exist\033[0;0m"
         exit 1
     fi
 
