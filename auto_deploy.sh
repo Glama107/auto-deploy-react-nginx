@@ -80,7 +80,7 @@ clear
         sleep 1
         clear
         #Command to show current external IP address
-        currentip = $(dig @resolver4.opendns.com myip.opendns.com +short)
+        currentip"=$(dig @resolver4.opendns.com myip.opendns.com +short)"
         echo -e "What is your Host IP (current is \033[0;36m$currentip)\033[0;0m"
         read hostip
         #testing if the ip pattern is correct
