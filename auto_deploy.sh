@@ -218,7 +218,7 @@ Delete()
 {
     #Listing all folder insite projects
     cd projects
-    projectsworking=$(ls -d *) > /dev/null 2>&1
+    projectsworking=$(ls -d * > /dev/null 2>&1)
     if [ $? -eq 0 ]
     then
         #Ask the project to delete
