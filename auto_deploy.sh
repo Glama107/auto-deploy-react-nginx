@@ -82,7 +82,7 @@ clear
             cd $path
 
             #duplicate & rename config file to project name
-            sudo cp config $projectname
+            sudo cp config $projectname.conf
 
             #templating modification in config file
             sed -i "s/SERVERNAME/$hostip/" $projectname
