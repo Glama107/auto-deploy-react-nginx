@@ -220,11 +220,22 @@ Delete()
     cd projects
     projectsworking=$(ls -d *)
     #Ask the project to delete
-    echo "Wich project to delete ? the projects up are : $projectsworking"
+    echo "Wich project to delete ? the projects up are : $projectsworking "
     read projecttodelete
+    #Re-asking to delete
+    echo "Are you sure you wanna delete? Re-typing the project name to confim : $projectsworking "
     #Deleting the project folder
     cd $path
+    echo "Deleting $projecttodelete folder..."
     sudo rm -rf "projects/$projecttodelete"
+    echo "Sucessfuly delete, now deleting inside /var/www/html/$projecttodelete ..."
+    sudo rm -rf "/var/www/html/$projecttodelete"
+    echo "Success ! Deleting nginx config..."
+    sudo rm /etc/nginx/sites-available/$projecttodelete
+    sudo rm /etc/nginx/sites-enabled/$projecttodelete
+    echo "Success ! reloading nginx config"
+    sudo systemctl restart nginx
+    echo "All has been delete !"
 }
 
 
