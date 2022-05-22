@@ -4,8 +4,9 @@ clear
 
 path=$(pwd)
 
-#Prevent lag while executing script
+#Prevent lag while executing script (check if package is already installed)
 dpkg -s figlet toilet > /dev/null 2>&1
+
 if [ $? -eq 0 ] 
 then
     echo -e "\033[0;32m"
@@ -13,6 +14,9 @@ then
     echo -e "\033[0;0m"
 else
     sudo apt install figlet toilet -y > /dev/null 2>&1
+    echo -e "\033[0;32m"
+    figlet -c AUTO DEPLOY
+    echo -e "\033[0;0m"
 fi
 
 DisplayHelp(){
