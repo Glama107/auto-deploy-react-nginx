@@ -23,7 +23,7 @@ DisplayHelp(){
    # Display Help
    echo 
    echo -e "\033[0;32mTool to auto-deploy a react website on ubuntu server\033[0;0m"
-   echo "Syntax: ./auto_deploy.sh [-a|d|h]"
+   echo "Syntax: ./auto_deploy.sh [-c|d|h]"
    echo "options:"
    echo "-c     Creating a deployment for a React App."
    echo "-d     Delete an deployed app."
@@ -36,7 +36,7 @@ PackagesInstallation(){
     #Adding source for node16
     curl -s https://deb.nodesource.com/setup_16.x | sudo bash > /dev/null 2>&1
     sudo apt update > /dev/null 2>&1
-    sudo apt install nodejs npm git-all nginx -y > /dev/null 2>&1
+    sudo apt install nodejs git-all nginx -y > /dev/null 2>&1
 
     clear
 }
@@ -292,7 +292,7 @@ Delete(){
 
 
 if [ "$1" == "-h" ] || [ "$1" == "" ]; then
-  echo -e "\033[0;31mAdd -a or -h to run program\033[0;0m"
+  echo -e "\033[0;31mAdd -c or -h to run program\033[0;0m"
   DisplayHelp
   exit 0
 elif [ "$1" == "-c" ]; 
